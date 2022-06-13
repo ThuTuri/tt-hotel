@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios'
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 function BookingScreen() {
@@ -31,7 +33,7 @@ function BookingScreen() {
                         setRoom(data)
                         setTotalAmount(data.rentperday * totalDays)
                     }
-                    
+
                     setLoading(false)
                 })
 
@@ -42,20 +44,30 @@ function BookingScreen() {
         }
     }, [])
 
-  async function bookRoom(){
+
+
+    async function onToken(token) {
+        console.log(token);
         const bookingDetails = {
             room,
             userid: JSON.parse(localStorage.getItem('currentUser'))._id,
             fromDate,
             toDate,
             totalAmount,
-            totalDays
+            totalDays,
+            token
         }
 
         try {
+            setLoading(true);
             const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails)
+            setLoading(false);
+            Swal.fire('Congratulations!', 'Your Room Booked Successfully', 'success').then(result=>{
+                window.location.href='/bookings'
+            })
         } catch (error) {
-            
+            setLoading(false);
+            Swal.fire('OOps!', 'Something went wrong', 'error')
         }
     }
 
@@ -73,7 +85,7 @@ function BookingScreen() {
                             <h1>Booking Details</h1>
                             <hr />
                             <b>
-                                <p>Name: </p>
+                                <p>Name: {JSON.parse(localStorage.getItem('currentUser')).name} </p>
                                 <p>From Date: {fromDate}</p>
                                 <p>To Date: {toDate} </p>
                                 <p>Max Count: {room.maxcount}</p>
@@ -93,7 +105,14 @@ function BookingScreen() {
 
                         </div>
                         <div style={{ float: 'right' }}>
-                            <button className='btn' onClick={bookRoom}>Pay Now</button>
+                            <StripeCheckout
+                                amount={totalAmount * 100}
+                                token={onToken}
+                                currency="USD"
+                                stripeKey="pk_test_51LA9R5AiMh1ZupZJ9uO7biufniJogLzXGoeI6CljGVukmvUs7j9Gm5N0QgkebNjmHQR8TC6jBplur0wTpttHwdUC00doOXhCD7"
+                            >
+                                <button className='btn'>Pay Now</button>
+                            </StripeCheckout>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,10 @@ function HomeScreen() {
 
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
+  const [duplicaterooms, setDuplicateRooms] = useState([]);
+
+  const [searchkey, setSearchKey] = useState('');
+  const [type, setType] = useState('all')
 
   useEffect(() => {
 
@@ -23,6 +27,7 @@ function HomeScreen() {
         .then(json => {
 
           setRooms(json)
+          setDuplicateRooms(json)
           setLoading(false)
         })
 
@@ -33,31 +38,84 @@ function HomeScreen() {
   }, []);
 
 
-  function filterByDate(dates){
+  function filterByDate(dates) {
     setFromDate(moment(dates[0]).format('DD-MM-YYYY'))
     setToDate(moment(dates[1]).format('DD-MM-YYYY'))
+
+    var temprooms = []
+    var availability = false
+    for (const room of duplicaterooms) {
+      if (room.currentbookings.length > 0) {
+        for (const booking of room.currentbookings) {
+          if (!moment(moment(dates[0]).format('DD-MM-YYYY')).isBetween(booking.fromDate, booking.toDate)
+            && !moment(moment(dates[0]).format('DD-MM-YYYY')).isBetween(booking.fromDate, booking.toDate)
+          ) {
+            if (
+              moment(dates[0]).format('DD-MM-YYYY') !== booking.fromDate &&
+              moment(dates[0]).format('DD-MM-YYYY') !== booking.toDate &&
+              moment(dates[1]).format('DD-MM-YYYY') !== booking.fromDate &&
+              moment(dates[1]).format('DD-MM-YYYY') !== booking.toDate
+            ) {
+              availability = true;
+            }
+          }
+        }
+      }
+      if (availability == true || room.currentbookings.length == 0) {
+        temprooms.push(room);
+      }
+      setRooms(temprooms)
+    }
+  }
+
+  function filterBySearch(){
+    const temprooms = duplicaterooms.filter(room=>room.name.toLowerCase().includes(searchkey.toLowerCase()))
+     setRooms(temprooms)
+  }
+
+  function filterByType(e){
+    setType(e)
+    if(e!='all'){
+      const temprooms = duplicaterooms.filter(room=>room.type.toLowerCase()==e.toLowerCase())
+    setRooms(temprooms)
+    }else{
+      setRooms(duplicaterooms)
+    }
   }
 
 
   return (
     <div className='container'>
-      <div className='row mt-5'>
+      <div className='row mt-5 bs' >
         <div className='col-md-3'>
-        <RangePicker format='DD-MM-YY' onChange={filterByDate} />
+          <RangePicker format='DD-MM-YY' onChange={filterByDate} />
         </div>
+        <div className='col-md-5'>
+          <input type='text' className='form-control' placeholder='search rooms' 
+          value={searchkey} onChange={(e)=>{setSearchKey(e.target.value)}} onKeyUp={filterBySearch}
+          />
+        </div>
+        <div className='col-md-3'>
+          <select className='form-control' value={type} onChange={(e)=>{filterByType(e.target.value)}}>
+          <option value="all">All</option>
+          <option value="delux">Delux</option>
+          <option value="non-delux">Non-Delux</option>
+        </select>
+        </div>
+        
       </div>
       <div className='row justify-content-center mt-5  '>
         {loading ? (
-        <Loader/>
-        ) : rooms.length>1 ? (
-          rooms.map(room => {
-            return <div className='col-md-9 mt-3'>
-            <Room room={room} fromDate={fromDate} toDate={toDate} />
-          </div> ;
-        }) 
-        ) : (
-        <Error/>
-        )}
+          <Loader />
+        ) :(
+          rooms.map((room) => {
+            return (
+               <div className='col-md-9 mt-3'>
+              <Room room={room} fromDate={fromDate} toDate={toDate} />
+            </div>
+          );
+          })
+        ) }
       </div>
     </div>
   );

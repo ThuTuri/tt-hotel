@@ -22,7 +22,7 @@ function Navbar() {
                   <i class="fa fa-user"></i>  {user.name}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Booking</a>
+                    <a class="dropdown-item" href="/bookings">Booking</a>
                     <a class="dropdown-item" href="#" onClick={logout}>Logout</a>
                   </div>
                 </div>
