@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Button, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+AOS.init({
+  duration: 1000
+});
 
 function Room({ room, fromDate, toDate }) {
   const [show, setShow] = useState(false);
@@ -8,7 +13,7 @@ function Room({ room, fromDate, toDate }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <div className='row bs'>
+    <div className='row bs mb-3' data-aos='fade-up'>
       <div className='col-md-4'>
         <img src={room.imageurls[0]} className='smallimg' />
       </div>
@@ -16,8 +21,8 @@ function Room({ room, fromDate, toDate }) {
         <h1>{room.name}</h1>
         <b>
           {" "}
-          <p>Max Count: {room.maxcount}</p>
-          <p>Phone Number: {room.phonenumber}</p>
+          <p>Max Count: {room.maxCount}</p>
+          <p>Phone Number: {room.phoneNumber}</p>
           <p>Type: {room.type}</p>
         </b>
 
@@ -43,8 +48,8 @@ function Room({ room, fromDate, toDate }) {
         </Modal.Header>
         <Modal.Body>
           <Carousel >
-            {room.imageurls.map(url => {
-              return <Carousel.Item>
+            {room.imageurls.map((url, index) => {
+              return <Carousel.Item key={url + index}>
                 <img
                   className="d-block w-100 bigimg"
                   src={url}

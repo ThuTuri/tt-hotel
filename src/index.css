@@ -13,7 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+p{
+  font-size: 15px !important;
+}
 .navbar{
   background-color: #52c0b4 !important;
 }
@@ -35,8 +37,8 @@ h1{
   font-size: 20px !important;
 }
 .btn{
-  background-color: #52c0b4 !important;
-  color: white !important;
+  background-color: #52c0b4 ;
+  color: white ;
   box-shadow: none !important;
 }
 .bs{
@@ -58,9 +60,9 @@ input, select, .ant-picker{
   height: 35px !important;
 }
 h2{
-  font-size: 30px !important;
+  font-size: 30px;
   padding: 10px;
-  font-weight: bold !important;
+  font-weight: bold ;
   text-align: center;
 }
 .dropdown-toggle{
@@ -68,4 +70,18 @@ h2{
 }
 .ant-picker-input input{
   border: none !important;
+}
+.landing{
+  background-color: #52c0b4;
+  height: 100vh;
+  padding-top: 130px;
+}
+.landing-btn{
+  background-color: white !important;
+  color: #52c0b4 !important;
+  margin-top: 20px;
+}
+
+.landing .col-md-12{
+  border-right: 5px solid white !important;
 }

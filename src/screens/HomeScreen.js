@@ -99,7 +99,7 @@ function HomeScreen() {
           <select className='form-control' value={type} onChange={(e)=>{filterByType(e.target.value)}}>
           <option value="all">All</option>
           <option value="delux">Delux</option>
-          <option value="non-delux">Non-Delux</option>
+          <option value="luxury">Luxury</option>
         </select>
         </div>
         
@@ -108,9 +108,9 @@ function HomeScreen() {
         {loading ? (
           <Loader />
         ) :(
-          rooms.map((room) => {
+          rooms.map((room, index) => {
             return (
-               <div className='col-md-9 mt-3'>
+               <div className='col-md-9 mt-3' key={room._id + index}>
               <Room room={room} fromDate={fromDate} toDate={toDate} />
             </div>
           );

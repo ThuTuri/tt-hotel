@@ -6,6 +6,11 @@ import Loader from '../components/Loader';
 import Error from '../components/Error';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+AOS.init({
+  duration: 1000
+});
 
 
 function BookingScreen() {
@@ -22,6 +27,9 @@ function BookingScreen() {
     const [totalAmount, setTotalAmount] = useState()
 
     useEffect(() => {
+        if(!localStorage.getItem('currentUser')){
+            window.location.reload='/login'
+        }
         try {
             setLoading(true)
             axios.post('http://localhost:5000/api/rooms/get-room-by-id', {
@@ -31,7 +39,7 @@ function BookingScreen() {
                     if (response) {
                         const data = response.data;
                         setRoom(data)
-                        setTotalAmount(data.rentperday * totalDays)
+                        setTotalAmount(data.rentPerDay * totalDays)
                     }
 
                     setLoading(false)
@@ -72,7 +80,7 @@ function BookingScreen() {
     }
 
     return (
-        <div className='m-5'>
+        <div className='m-5' data-aos='flip-left'>
             {loading ? (<h1><Loader /></h1>) : room ? (<div>
                 <div className='row justify-content-center mt-5 bs'>
                     <div className='col-md-6'>
@@ -88,7 +96,7 @@ function BookingScreen() {
                                 <p>Name: {JSON.parse(localStorage.getItem('currentUser')).name} </p>
                                 <p>From Date: {fromDate}</p>
                                 <p>To Date: {toDate} </p>
-                                <p>Max Count: {room.maxcount}</p>
+                                <p>Max Count: {room.maxCount}</p>
                             </b>
 
 
@@ -99,7 +107,7 @@ function BookingScreen() {
                                 <h1>Amount</h1>
                                 <hr />
                                 <p>Total days: {totalDays}  </p>
-                                <p>Rent per day: {room.rentperday}</p>
+                                <p>Rent per day: {room.rentPerDay}</p>
                                 <p>Total Amount: {totalAmount}</p>
                             </b>
 
