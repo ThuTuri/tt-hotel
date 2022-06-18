@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
-        <a className="navbar-brand" href="/home">T&T HOTEL</a>
+        <a className="navbar-brand" href="/home" style={{fontSize: 30}}>T&T HOTEL</a>
         <button className="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" ><i className="fa fa-bars" style={{color: 'white'}}></i></span>
         </button>

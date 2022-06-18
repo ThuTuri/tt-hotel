@@ -20,6 +20,7 @@ function BookingScreen() {
 
     const { roomid } = useParams();
     const { fromDate, toDate } = useParams();
+    console.log(fromDate, toDate);
     const startDate = moment(fromDate, 'DD-MM-YYYY')
     const endDate = moment(toDate, 'DD-MM-YYYY')
 
@@ -71,7 +72,7 @@ function BookingScreen() {
             const result = await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails)
             setLoading(false);
             Swal.fire('Congratulations!', 'Your Room Booked Successfully', 'success').then(result=>{
-                window.location.href='/bookings'
+                window.location.href='/profile'
             })
         } catch (error) {
             setLoading(false);
@@ -88,27 +89,30 @@ function BookingScreen() {
                         <img src={room.imageurls?.length > 0 ? room.imageurls[0] : ''} className='bigimg' />
                     </div>
                     <div className='col-md-6'>
-                        <div style={{ textAlign: 'right' }}>
+                        <div style={{ textAlign: 'left' }}>
 
                             <h1>Booking Details</h1>
                             <hr />
-                            <b>
+                            
                                 <p>Name: {JSON.parse(localStorage.getItem('currentUser')).name} </p>
                                 <p>From Date: {fromDate}</p>
                                 <p>To Date: {toDate} </p>
                                 <p>Max Count: {room.maxCount}</p>
-                            </b>
-
-
+                           
+                            <div style={{display: 'flex'}}>
+                                <p style={{color: 'red'}}>Non-Refundable</p>
+                                <i className='fa fa-warning ml-3 mt-2' style={{color: 'gray'}}></i>
+                            </div>
+                            
                         </div>
 
-                        <div style={{ textAlign: 'right' }}>
+                        <div style={{ textAlign: 'left' }}>
                             <b>
                                 <h1>Amount</h1>
                                 <hr />
                                 <p>Total days: {totalDays}  </p>
-                                <p>Rent per day: {room.rentPerDay}</p>
-                                <p>Total Amount: {totalAmount}</p>
+                                <p>Rent per day: ${room.rentPerDay}</p>
+                                <p>Total Amount: ${totalAmount}</p>
                             </b>
 
                         </div>

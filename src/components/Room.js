@@ -19,10 +19,18 @@ function Room({ room, fromDate, toDate }) {
       </div>
       <div className='col-md-7 '>
         <h1>{room.name}</h1>
+        <div style={{display: 'flex'}}>
+          <i className='fa fa-wifi mr-2 mt-1' style={{color: 'green'}}></i>
+          <p className='mr-3'>Free Wifi</p>
+          <i className='fa fa-check mr-2 mt-1' style={{color: 'green'}}></i>
+          <p className='mr-3'>Breakfast</p>
+          <i className='fa fa-car mr-2 mt-1' style={{color: 'green'}}></i>
+          <p className='mr-3'>Airport transfers</p>
+        </div>
         <b>
           {" "}
           <p>Max Count: {room.maxCount}</p>
-          <p>Phone Number: {room.phoneNumber}</p>
+          <p>Rent Per Day:{" "}${room.rentPerDay}</p>
           <p>Type: {room.type}</p>
         </b>
 
@@ -42,7 +50,7 @@ function Room({ room, fromDate, toDate }) {
 
 
 
-      <Modal show={show} onHide={handleClose} size='lg'>
+      <Modal size='lg' show={show} onHide={handleClose} >
         <Modal.Header>
           <Modal.Title>{room.name}</Modal.Title>
         </Modal.Header>

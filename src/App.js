@@ -26,7 +26,7 @@ function App() {
         <Route path="/" element={<LandingScreen/>}/>
       </Routes>
       </BrowserRouter>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

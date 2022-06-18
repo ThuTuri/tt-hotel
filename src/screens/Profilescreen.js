@@ -22,12 +22,15 @@ function Profilescreen() {
     return (
         <div className='ml-3 mt-3'>
             <Tabs defaultActiveKey="1" >
-                <TabPane tab="Profile" key="1">
-                    <h1>My Profile</h1>
-                    <br />
-                    <h1>Name: {user.name}</h1>
-                    <h1>Email: {user.email}</h1>
-                    <h1>isAdmin: {user.isAdmin ? 'YES' : 'NO'}</h1>
+                <TabPane tab="Profile" key="1" className=' mb-5'>
+                    <div style={{width: 500, height: 200}} className="bs ">
+                        <h1>My Profile</h1>
+                        <br />
+                        <h1>Name: {user.name}</h1>
+                        <h1>Email: {user.email}</h1>
+                        <h1>isAdmin: {user.isAdmin ? 'YES' : 'NO'}</h1>
+                    </div>
+
                 </TabPane>
                 <TabPane tab="Bookings" key="2">
                     <MyBookings />
@@ -85,7 +88,7 @@ export function MyBookings() {
 
     return (
         <div>
-            <div className='row'>
+            <div className='row mb-5'>
                 <div className='col-md-6'>
                     {loading && (<Loader />)}
                     {bookings && (bookings.map(booking => {
@@ -94,8 +97,8 @@ export function MyBookings() {
                             <p><b>BookingId</b>: {booking._id} </p>
                             <p><b>CheckIn</b>: {moment(booking.fromDate).format('DD-MM-YYYY')} </p>
                             <p><b>CheckOut</b>: {moment(booking.toDate).format('DD-MM-YYYY')} </p>
-                            <p><b>Amount</b>: {booking.totalAmount} </p>
-                            <p><b>Status</b>: {" "}{booking.status == 'cancelled' ? (<Tag color="red">CANCELLED</Tag>) : (<Tag color="green">CONFIRMED</Tag>) } </p>
+                            <p><b>Amount</b>:{" "} ${booking.totalAmount} </p>
+                            <p><b>Status</b>: {" "}{booking.status == 'cancelled' ? (<Tag color="red">CANCELLED</Tag>) : (<Tag color="green">CONFIRMED</Tag>)} </p>
 
                             {booking.status !== 'cancelled' && (
                                 <div className='text-right'>

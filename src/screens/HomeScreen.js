@@ -28,6 +28,7 @@ function HomeScreen() {
 
           setRooms(json)
           setDuplicateRooms(json)
+
           setLoading(false)
         })
 
@@ -39,23 +40,38 @@ function HomeScreen() {
 
 
   function filterByDate(dates) {
-    setFromDate(moment(dates[0]).format('DD-MM-YYYY'))
-    setToDate(moment(dates[1]).format('DD-MM-YYYY'))
+    const fromDateTemp = moment(dates[0]).format('DD-MM-YYYY')
+    const toDateTemp = moment(dates[1]).format('DD-MM-YYYY')
+    setFromDate(fromDateTemp)
+    setToDate(toDateTemp)
 
     var temprooms = []
     var availability = false
+
+    // const bookingFrom = "18-06-2022"
+    // const bookingTo = "20-06-2022"
+
+    console.log(`moment(fromDateTemp, 'DD-MM-YYYY') =`, moment(fromDateTemp, 'DD-MM-YYYY'))
+
     for (const room of duplicaterooms) {
       if (room.currentbookings.length > 0) {
         for (const booking of room.currentbookings) {
-          if (!moment(moment(dates[0]).format('DD-MM-YYYY')).isBetween(booking.fromDate, booking.toDate)
-            && !moment(moment(dates[0]).format('DD-MM-YYYY')).isBetween(booking.fromDate, booking.toDate)
+          const bookingFromDate = moment(booking.fromDate).format('DD-MM-YYYY')
+          const bookingToDate = moment(booking.toDate).format('DD-MM-YYYY')
+          // if (!moment(fromDateTemp, 'DD-MM-YYYY').isBetween(bookingFrom, bookingTo)
+          //   && !moment(toDateTemp, 'DD-MM-YYYY').isBetween(bookingFrom, bookingTo)
+          // ) {
+          if (!moment(fromDateTemp, 'DD-MM-YYYY').isBetween(bookingFromDate, bookingToDate)
+            && !moment(toDateTemp, 'DD-MM-YYYY').isBetween(bookingFromDate, bookingToDate)
           ) {
+            console.log('between ok')
             if (
-              moment(dates[0]).format('DD-MM-YYYY') !== booking.fromDate &&
-              moment(dates[0]).format('DD-MM-YYYY') !== booking.toDate &&
-              moment(dates[1]).format('DD-MM-YYYY') !== booking.fromDate &&
-              moment(dates[1]).format('DD-MM-YYYY') !== booking.toDate
+              fromDateTemp !== booking.fromDate &&
+              fromDateTemp !== booking.toDate &&
+              toDateTemp !== booking.fromDate &&
+              toDateTemp !== booking.toDate
             ) {
+              console.log("available ok")
               availability = true;
             }
           }
@@ -68,17 +84,17 @@ function HomeScreen() {
     }
   }
 
-  function filterBySearch(){
-    const temprooms = duplicaterooms.filter(room=>room.name.toLowerCase().includes(searchkey.toLowerCase()))
-     setRooms(temprooms)
+  function filterBySearch() {
+    const temprooms = duplicaterooms.filter(room => room.name.toLowerCase().includes(searchkey.toLowerCase()))
+    setRooms(temprooms)
   }
 
-  function filterByType(e){
+  function filterByType(e) {
     setType(e)
-    if(e!='all'){
-      const temprooms = duplicaterooms.filter(room=>room.type.toLowerCase()==e.toLowerCase())
-    setRooms(temprooms)
-    }else{
+    if (e != 'all') {
+      const temprooms = duplicaterooms.filter(room => room.type.toLowerCase() == e.toLowerCase())
+      setRooms(temprooms)
+    } else {
       setRooms(duplicaterooms)
     }
   }
@@ -91,32 +107,34 @@ function HomeScreen() {
           <RangePicker format='DD-MM-YY' onChange={filterByDate} />
         </div>
         <div className='col-md-5'>
-          <input type='text' className='form-control' placeholder='search rooms' 
-          value={searchkey} onChange={(e)=>{setSearchKey(e.target.value)}} onKeyUp={filterBySearch}
+          <input type='text' className='form-control' placeholder='search rooms'
+            value={searchkey} onChange={(e) => { setSearchKey(e.target.value) }} onKeyUp={filterBySearch}
           />
         </div>
         <div className='col-md-3'>
-          <select className='form-control' value={type} onChange={(e)=>{filterByType(e.target.value)}}>
-          <option value="all">All</option>
-          <option value="delux">Delux</option>
-          <option value="luxury">Luxury</option>
-        </select>
+          <select className='form-control' value={type} onChange={(e) => { filterByType(e.target.value) }}>
+            <option value="all">All</option>
+            <option value="delux">Delux</option>
+            <option value="luxury">Luxury</option>
+          </select>
         </div>
-        
+
       </div>
       <div className='row justify-content-center mt-5  '>
         {loading ? (
           <Loader />
-        ) :(
+        ) : (
           rooms.map((room, index) => {
             return (
-               <div className='col-md-9 mt-3' key={room._id + index}>
-              <Room room={room} fromDate={fromDate} toDate={toDate} />
-            </div>
-          );
+              <div className='col-md-9 mt-3' key={room._id + index}>
+                <Room room={room} fromDate={fromDate} toDate={toDate} />
+              </div>
+
+            );
           })
-        ) }
+        )}
       </div>
+
     </div>
   );
 }
