@@ -9,7 +9,9 @@ import LoginScreen from './screens/LoginScreen';
 import Profilescreen from './screens/Profilescreen';
 import Adminscreen from './screens/Adminscreen';
 import LandingScreen from './screens/LandingScreen';
+import AboutScreen from './screens/AboutScreen'
 import Footer from './components/Footer';
+import ContactScreen from './screens/ContactScreen';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/register" element={<RegisterScreen/>}/>
         <Route path="/login" element={<LoginScreen/>}/>
         <Route path="/profile" element={<Profilescreen/>}/>
+        <Route path="/about" element={<AboutScreen/>}/>
+        <Route path="/contact" element={<ContactScreen/>}/>
         <Route path="/admin" element={<Adminscreen/>}/>
         <Route path="/" element={<LandingScreen/>}/>
       </Routes>

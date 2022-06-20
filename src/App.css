@@ -1,38 +1,333 @@
-.App {
-  text-align: left;
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primaryColor: #0000ff;
+  --mainWhite: #fff;
+  --offWhite: #f7f7f7;
+  --mainBlack: #222;
+  --mainGrey: #ececec;
+  --darkGrey: #cfcfcf;
+  --mainTransition: all 0.3s linear;
+  --mainSpacing: 3px;
+  --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
+  --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}
+/* globals */
+h1 {
+  font-size: 3em;
+  line-height: 1;
+  margin-bottom: 0.5em;
+}
+h2 {
+  font-size: 2em;
+  margin-bottom: 0.75em;
+}
+h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: 1em;
+}
+h4 {
+  font-size: 1.2em;
+  line-height: 1.25;
+  margin-bottom: 1.25em;
+}
+h5 {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 1.5em;
+}
+h6 {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 1.5em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn-primary {
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: var(--primaryColor);
+  padding: 0.4rem 0.9rem;
+  border: 3px solid var(--primaryColor);
+  transition: var(--mainTransition);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-warning {
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: var(--primaryColor);
+  padding: 0.4rem 0.9rem;
+  border: 3px solid var(--primaryColor);
+  transition: var(--mainTransition);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-primary:hover{
+  text-decoration: none;
+  background: transparent!important;
+  color: #fff!important;
+}
+.btn-warning:hover{
+  text-decoration: none;
+  background: transparent!important;
+  color: yellow!important;
+}
+.loading {
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: 3rem;
+}
+.roomerror{
+  margin-top: 100px;
+}
+.roomerror:hover .error{
+  background-color: #2C3E50;
+  color: #ffffff!important;
+}
+.error {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 2rem 0;
+}
+.empty-search {
+  text-align: center;
+  text-transform: capitalize;
+  margin: 2rem 0;
+  padding: 1rem;
+  letter-spacing: var(--mainSpacing);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* end of globals */
+/* Navbar */
+.nav-link{
+  padding: 8px 15px;
+  margin-left: 10px;
+  margin-right: 20px;
+  font-size: 18px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: .5s linear;
+  font-weight: 800;
+  -webkit-transition: .5s linear;
+  -moz-transition: .5s linear;
+  -ms-transition: .5s linear;
+  -o-transition: .5s linear;
+}
+.bg-transparent.scrolled {
+  background-color: black!important;
+  transition:500ms ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar-brand{
+  font-size: 32px!important;
+  color: #ffffff!important;
+}
+.nav-link:hover{
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+.nav-link.active_class{
+color: #ffffff;
+border: 2px solid #ffffff;
+font-weight: 800;
+}
+
+.form-control{
+border: 2px solid #000;
+}
+.form-control:focus,
+.form-control.active {
+  border: 2px solid #000000!important;
+}
+textarea:focus, 
+textarea.form-control:focus, 
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=number]:focus, 
+[type=text].form-control:focus, 
+[type=password].form-control:focus, 
+[type=email].form-control:focus, 
+[type=tel].form-control:focus, 
+[contenteditable].form-control:focus {
+box-shadow: inset 0 -1px 0 #ddd;
+}
+
+
+/* end of navbar */
+/* Hero */
+.defaultHero,
+.roomsHero {
+  min-height: calc(100vh - 0px);
+  background: url("./images/defaultBcg.jpg") center/cover no-repeat;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+}
+.roomsHero {
+  background-image: url("./images/room-2.jpg");
+  min-height: calc(100vh - 0px);
+}
+.singleRoom {
+  background-image: url("./images/room-3.jpeg");
+  min-height: calc(100vh - 0px);
+}
+.roomsError{
+  background-image: url("./images/error.jpg");
+  min-height: calc(100vh - 0px);
+}
+.lost{
+  font-size: 44px;
+  color: yellow;
+  text-align: center;
+}
+/* End of Hero */
+/* Banner */
+.banner {
+  display: inline-block;
+  position: absolute!important;
+  background: rgba(0, 0, 0, 0.5)!important;
+  color: var(--mainWhite);
+  text-align: center;
+  text-transform: capitalize;
+  letter-spacing: var(--mainSpacing);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.banner h1 {
+  font-size: 44px!important;
+}
+.banner div {
+  width: 10rem;
+  height: 5px;
+  background: var(--primaryColor);
+  margin: 1.7rem auto;
+}
+.banner p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+@media screen and (max-width: 576px) {
+  .banner {
+    padding: 2rem 3rem!important
+  }
+  .banner h1 {
+    font-size: 32px!important;
+  }
+}
+@media screen and (min-width: 992px) {
+  .banner {
+    padding: 2rem 6rem;
+  }
+  .banner h1 {
+    font-size: 4rem;
+  }
+}
+/* End of Banner */
+/* Title */
+.section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.section-title h4 {
+  font-size: 2rem;
+  letter-spacing: var(--mainSpacing);
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+.section-title div {
+  width: 5rem;
+  height: 5px;
+  margin: 0 auto;
+  background: var(--primaryColor);
+}
+/* end of Title */
+
+/* services */
+.services {
+  padding: 3rem 0;
+}
+.services {
+  background: #EBF5FB;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.service span {
+  display: inline-block;
+  color: var(--primaryColor);
+  font-size: 80px;
+  margin-bottom: 1.5rem;
+  transition: 1s linear;
+  -webkit-transition: 1s linear;
+  -moz-transition: 1s linear;
+  -ms-transition: 1s linear;
+  -o-transition: 1s linear;
+}
+.services span:hover{
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+}
+.services h6 {
+  letter-spacing: var(--mainSpacing);
+  font-weight: 1000;
+  text-transform: capitalize;
+}
+.services p {
+  width: 80%;
+  margin: 0 auto;
+}
+@media screen and (min-width: 992px) {
+  .services-center {
+    width: 95vw;
+    max-width: 1170px;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (min-width: 1200px) {
+  .services p {
+    width: 100%;
   }
 }
+/*end of services */
+
+
+/* aboutus */
+
+.aboutus,.contact{
+  margin-top: 100px!important;
+}
+.about_company,.team{
+  padding: 60px 30px;
+}
+.about_info{
+  letter-spacing: 40;
+}
+.carousel-inner{
+  min-height: 400px!important;
+  max-height: 400px!important;
+}
+.connect{
+  font-size: 44px!important;
+  padding: 5px 8px;
+}
+/* end of about us */

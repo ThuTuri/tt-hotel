@@ -1,23 +1,23 @@
 import React from 'react';
+import Hero from '../components/Hero';
+import Banner from '../components/Banner';
 import { Link } from 'react-router-dom';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
-AOS.init({
-  duration: 2000
-});
+import Services from '../components/Services';
+import Footer from '../components/Footer';
 
 function LandingScreen() {
   return (
-    <div className='row landing justify-content-center'>
-        <div className='col-md-9 my-auto text-center' style={{borderRight: '8px solid #19192f'}}>
-            <h2 data-aos='zoom-in' style={{color: '#19192f', fontSize: '130px'}}>T&THotel</h2>
-            <h1 data-aos='zoom-out' style={{color: '#19192f'}}>There is only one boss. The Guest.</h1>
-
-            <Link to='/home'>
-            <button className='btn landing-btn'  >Get Started</button>
+    <>
+    <Hero hero="defaultHero">
+    </Hero>
+    <Banner title="Luxurious Rooms" subtitle="deluxe rooms starting at 300$">
+            <Link to="/home" className="btn btn-primary">
+                  Our Rooms
             </Link>
-        </div>
-    </div>
+    </Banner>
+    <Services/> 
+    <Footer/>
+    </>
   )
 }
 

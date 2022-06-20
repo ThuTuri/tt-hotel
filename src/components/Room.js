@@ -18,7 +18,7 @@ function Room({ room, fromDate, toDate }) {
         <img src={room.imageurls[0]} className='smallimg' />
       </div>
       <div className='col-md-7 '>
-        <h1>{room.name}</h1>
+        <h1 className='h1-name'>{room.name}</h1>
         <div style={{display: 'flex'}}>
           <i className='fa fa-wifi mr-2 mt-1' style={{color: 'green'}}></i>
           <p className='mr-3'>Free Wifi</p>

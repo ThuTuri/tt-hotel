@@ -12,7 +12,6 @@ AOS.init({
   duration: 1000
 });
 
-
 function BookingScreen() {
     const [loading, setLoading] = useState();
     const [error, setError] = useState(false);
@@ -52,8 +51,6 @@ function BookingScreen() {
             setError(true)
         }
     }, [])
-
-
 
     async function onToken(token) {
         console.log(token);
